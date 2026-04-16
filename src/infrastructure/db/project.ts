@@ -1,7 +1,7 @@
 import { Prisma } from "@prisma/client";
 
 import { UserId } from "@domain/user";
-import { Project, ProjectSummary, ProjectId } from "@domain/project";
+import { Project, ProjectSummary, ProjectSearchData, ProjectId } from "@domain/project";
 import { Category, CategoryType } from "@domain/category";
 import { Priority } from "@domain/priority";
 import { Sort } from "@domain/filter";
@@ -151,6 +151,65 @@ export const getProjectsSummary = async (userId: UserId): Promise<ProjectSummary
   }));
 
   return projectsSummary;
+};
+
+/**
+ * Retrieves project summaries with associated issue data for search functionality.
+ * Issues are flattened from all categories to enable searching across all project issues.
+ */
+export const getProjectsSummaryWithIssues = async (
+  userId: UserId
+): Promise<ProjectSearchData[]> => {
+  const projectsSummaryDb = await db.project.findMany({
+    where: {
+      users: {
+        some: {
+          id: userId,
+        },
+      },
+    },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      image: true,
+      createdAt: true,
+      categories: {
+        select: {
+          issues: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "asc",
+    },
+  });
+
+  const projectsSearchData: ProjectSearchData[] = projectsSummaryDb.map((projectSummaryDb) => {
+    // Flatten issues from all categories to support search across all project issues
+    const issues = projectSummaryDb.categories.flatMap((category) =>
+      category.issues.map((issue) => ({
+        id: issue.id,
+        name: issue.name,
+      }))
+    );
+
+    return {
+      id: projectSummaryDb.id,
+      name: projectSummaryDb.name,
+      image: projectSummaryDb.image,
+      description: projectSummaryDb.description || "",
+      createdAt: projectSummaryDb.createdAt.getDate(),
+      issues,
+    };
+  });
+
+  return projectsSearchData;
 };
 
 type CreateProjectInput = {
