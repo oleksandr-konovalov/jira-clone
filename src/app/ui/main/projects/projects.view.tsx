@@ -26,6 +26,7 @@ export const ProjectsView = ({
         </Link>
         <ProjectSearch initialValue={search} />
       </div>
+      {/* Show empty state only when user has searched but no results found */}
       {hasResults ? (
         <div className="mt-4 grid grid-cols-[repeat(auto-fit,_400px)] gap-8">
           {projectsSummary.map((project) => (
@@ -33,16 +34,24 @@ export const ProjectsView = ({
           ))}
         </div>
       ) : (
-        hasSearch && (
-          <div className="mt-12 text-center">
-            <p className="text-font-subtle">No projects found matching "{search}"</p>
-          </div>
-        )
+        hasSearch && <NoResultsMessage searchQuery={search} />
       )}
       <Outlet />
     </div>
   );
 };
+
+const NoResultsMessage = ({
+  searchQuery,
+}: {
+  searchQuery: string;
+}): JSX.Element => (
+  <div className="mt-12 text-center">
+    <p className="text-font-subtle">
+      No projects found matching &quot;{searchQuery}&quot;
+    </p>
+  </div>
+);
 
 interface ProjectsViewProps {
   projectsSummary: ProjectSummary[];

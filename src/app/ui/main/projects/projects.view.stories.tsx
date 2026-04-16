@@ -7,13 +7,15 @@ const mockProjects: ProjectSummary[] = [
   {
     id: "jira-clone",
     name: "JIRA Clone",
-    description: "A software project management tool built with Remix and React",
+    description:
+      "A software project management tool built with Remix and React",
     image: "/images/projects/1.svg",
   },
   {
     id: "e-commerce-platform",
     name: "E-Commerce Platform",
-    description: "Modern online shopping platform with advanced inventory management and payment integrations",
+    description:
+      "Modern online shopping platform with advanced inventory management and payment integrations",
     image: "/images/projects/2.svg",
   },
   {
@@ -25,7 +27,8 @@ const mockProjects: ProjectSummary[] = [
   {
     id: "healthcare-portal",
     name: "Healthcare Portal",
-    description: "Patient management system with appointment scheduling and medical records",
+    description:
+      "Patient management system with appointment scheduling and medical records",
     image: "/images/projects/4.svg",
   },
   {
@@ -36,6 +39,7 @@ const mockProjects: ProjectSummary[] = [
   },
 ];
 
+// Decorator to wrap stories with Remix routing context for Link components
 const RemixStubDecorator = (Story: React.FC) => {
   const RemixStub = createRemixStub([
     {
@@ -54,6 +58,15 @@ const RemixStubDecorator = (Story: React.FC) => {
   ]);
 
   return <RemixStub initialEntries={["/"]} />;
+};
+
+const filterProjectsBySearchTerm = (searchTerm: string): ProjectSummary[] => {
+  const lowerSearchTerm = searchTerm.toLowerCase();
+  return mockProjects.filter(
+    (p) =>
+      p.name.toLowerCase().includes(lowerSearchTerm) ||
+      p.description?.toLowerCase().includes(lowerSearchTerm)
+  );
 };
 
 const meta: Meta<typeof ProjectsView> = {
@@ -80,10 +93,7 @@ export const Default: Story = {
 
 export const WithSearchValue: Story = {
   args: {
-    projectsSummary: mockProjects.filter(p => 
-      p.name.toLowerCase().includes("jira") || 
-      p.description?.toLowerCase().includes("software")
-    ),
+    projectsSummary: filterProjectsBySearchTerm("software"),
     search: "software",
   },
 };

@@ -4,31 +4,35 @@ import cx from "classix";
 import { BiSearch } from "react-icons/bi";
 import { IoCloseOutline } from "react-icons/io5";
 
-export const ProjectSearch = ({ initialValue }: ProjectSearchProps): JSX.Element => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [search, setSearch] = useState(initialValue || "");
+// Debounce delay to avoid excessive server requests while user is typing
+const SEARCH_DEBOUNCE_MS = 300;
 
+export const ProjectSearch = ({
+  initialValue,
+}: ProjectSearchProps): JSX.Element => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchValue, setSearchValue] = useState(initialValue || "");
+
+  // Debounce search input to reduce server load
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (search) {
-        searchParams.set("search", search);
+      if (searchValue) {
+        searchParams.set("search", searchValue);
       } else {
         searchParams.delete("search");
       }
       setSearchParams(searchParams, { replace: true });
-    }, 300);
+    }, SEARCH_DEBOUNCE_MS);
 
     return () => clearTimeout(timer);
-  }, [search, searchParams, setSearchParams]);
+  }, [searchValue, searchParams, setSearchParams]);
 
-  const clearSearch = () => setSearch("");
+  const clearSearch = () => setSearchValue("");
 
-  const renderIcon = (): JSX.Element => {
-    return search.length === 0 ? <SearchIcon /> : <ClearIcon onClick={clearSearch} />;
-  };
+  const hasSearchValue = searchValue.length > 0;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setSearch(e.target.value);
+    setSearchValue(e.target.value);
   };
 
   return (
@@ -36,7 +40,7 @@ export const ProjectSearch = ({ initialValue }: ProjectSearchProps): JSX.Element
       <input
         type="text"
         name="search"
-        value={search}
+        value={searchValue}
         placeholder="Search projects..."
         onChange={handleChange}
         className={cx(
@@ -48,7 +52,7 @@ export const ProjectSearch = ({ initialValue }: ProjectSearchProps): JSX.Element
         )}
       />
       <span className="absolute right-0 top-1/2 -translate-y-1/2 px-2">
-        {renderIcon()}
+        {hasSearchValue ? <ClearIcon onClick={clearSearch} /> : <SearchIcon />}
       </span>
     </div>
   );
@@ -65,8 +69,8 @@ const SearchIcon = (): JSX.Element => (
 );
 
 const ClearIcon = ({ onClick }: ClearIconProps): JSX.Element => (
-  // onMouseDown is needed because blur (unfocus) happens
-  // before 'click' event, but not before 'onMouseDown'
+  // Using onMouseDown instead of onClick because the input blur event
+  // fires before click, which would prevent the click from being registered
   <button
     onMouseDown={onClick}
     className={cx(

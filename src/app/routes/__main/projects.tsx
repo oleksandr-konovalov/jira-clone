@@ -62,6 +62,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   }
 
   const url = new URL(request.url);
+  // Extract search query param, converting empty string to undefined for cleaner API
   const search = url.searchParams.get("search") || undefined;
 
   const projectsSummary = await getProjectsSummary(userId, search);

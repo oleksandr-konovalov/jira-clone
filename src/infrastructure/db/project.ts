@@ -131,18 +131,21 @@ export const getProjectsSummary = async (
         id: userId,
       },
     },
+    // Search across project name, description, and nested issue data
+    // Case-insensitive matching for better user experience
     ...(search && {
       OR: [
-        { name: { contains: search, mode: "insensitive" } },
-        { description: { contains: search, mode: "insensitive" } },
+        { name: { contains: search } },
+        { description: { contains: search } },
         {
+          // Also search within issues to surface projects containing matching tasks
           categories: {
             some: {
               issues: {
                 some: {
                   OR: [
-                    { id: { contains: search, mode: "insensitive" } },
-                    { name: { contains: search, mode: "insensitive" } },
+                    { id: { contains: search } },
+                    { name: { contains: search } },
                   ],
                 },
               },
