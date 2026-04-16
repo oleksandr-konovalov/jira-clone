@@ -153,6 +153,79 @@ export const getProjectsSummary = async (userId: UserId): Promise<ProjectSummary
   return projectsSummary;
 };
 
+export const searchProjects = async (
+  userId: UserId,
+  query: string
+): Promise<ProjectSummary[]> => {
+  const projectsSummaryDb = await db.project.findMany({
+    where: {
+      users: {
+        some: {
+          id: userId,
+        },
+      },
+      OR: [
+        {
+          name: {
+            contains: query,
+            mode: "insensitive",
+          },
+        },
+        {
+          description: {
+            contains: query,
+            mode: "insensitive",
+          },
+        },
+        {
+          categories: {
+            some: {
+              issues: {
+                some: {
+                  OR: [
+                    {
+                      id: {
+                        contains: query,
+                        mode: "insensitive",
+                      },
+                    },
+                    {
+                      name: {
+                        contains: query,
+                        mode: "insensitive",
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+          },
+        },
+      ],
+    },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      image: true,
+      createdAt: true,
+    },
+    orderBy: {
+      createdAt: "asc",
+    },
+  });
+
+  const projectsSummary: ProjectSummary[] = projectsSummaryDb.map((projectSummaryDb) => ({
+    id: projectSummaryDb.id,
+    name: projectSummaryDb.name,
+    image: projectSummaryDb.image,
+    description: projectSummaryDb.description || "",
+    createdAt: projectSummaryDb.createdAt.getDate(),
+  }));
+
+  return projectsSummary;
+};
+
 type CreateProjectInput = {
   name: string;
   description: string;
