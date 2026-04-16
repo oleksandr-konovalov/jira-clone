@@ -1,7 +1,7 @@
 import { Prisma } from "@prisma/client";
 
 import { UserId } from "@domain/user";
-import { Project, ProjectSummary, ProjectId } from "@domain/project";
+import { Project, ProjectSummary, ProjectId, ProjectSearchData, ProjectIssueStub } from "@domain/project";
 import { Category, CategoryType } from "@domain/category";
 import { Priority } from "@domain/priority";
 import { Sort } from "@domain/filter";
@@ -151,6 +151,56 @@ export const getProjectsSummary = async (userId: UserId): Promise<ProjectSummary
   }));
 
   return projectsSummary;
+};
+
+export const getProjectsSummaryWithIssues = async (userId: UserId): Promise<ProjectSearchData[]> => {
+  const projectsDb = await db.project.findMany({
+    where: {
+      users: {
+        some: {
+          id: userId,
+        },
+      },
+    },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      image: true,
+      createdAt: true,
+      categories: {
+        select: {
+          issues: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "asc",
+    },
+  });
+
+  const projectsSearchData: ProjectSearchData[] = projectsDb.map((projectDb) => {
+    // Flatten all issues from all categories into a single array
+    const issues: ProjectIssueStub[] = projectDb.categories.flatMap(
+      (category) => category.issues
+    );
+
+    return {
+      id: projectDb.id,
+      name: projectDb.name,
+      image: projectDb.image,
+      description: projectDb.description || "",
+      createdAt: projectDb.createdAt.getDate(),
+      issues,
+    };
+  });
+
+  return projectsSearchData;
 };
 
 type CreateProjectInput = {
