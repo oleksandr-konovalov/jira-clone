@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import {
   ProjectSummary,
   projectToProjectSummary,
@@ -14,7 +14,7 @@ const meta: Meta<typeof ProjectsView> = {
   parameters: {
     layout: "fullscreen",
   },
-  decorators: [(Story) => withRemixStub(<Story />)],
+  decorators: [(Story: React.ComponentType) => withRemixStub(<Story />)],
 };
 
 export default meta;
@@ -48,7 +48,8 @@ const mockProjectsSummary: ProjectSummary[] = [
 ];
 
 /**
- * Default state showing multiple projects with the search input at the top right.
+ * Default state showing multiple projects with the search input
+ * at the top right.
  */
 export const Default: Story = {
   args: {
@@ -59,7 +60,8 @@ export const Default: Story = {
 
 /**
  * Empty state when no projects match the search query.
- * The search bar shows at the top right with the empty state message below.
+ * The search bar shows at the top right with the empty state
+ * message below.
  */
 export const NoMatchesFound: Story = {
   args: {

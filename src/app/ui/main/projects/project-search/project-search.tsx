@@ -1,6 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import { useRef } from "react";
 import cx from "classix";
-import { Form, useSubmit, useSearchParams, useNavigate } from "@remix-run/react";
+import {
+  Form,
+  useSubmit,
+  useSearchParams,
+  useNavigate,
+} from "@remix-run/react";
 import { BiSearch } from "react-icons/bi";
 import { IoCloseOutline } from "react-icons/io5";
 
@@ -8,35 +13,28 @@ export const ProjectSearch = (): JSX.Element => {
   const submit = useSubmit();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const inputRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
   const query = searchParams.get("q") || "";
 
+  // Navigate to base path to clear search params and reset the list
   const clearSearch = (): void => {
     navigate("/projects");
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const value = e.target.value;
+  // Submit form on every keystroke for instant search feedback
+  const handleChange = (): void => {
     if (formRef.current) {
       submit(formRef.current);
     }
   };
 
-  const renderIcon = (): JSX.Element => {
-    return query.length === 0 ? (
-      <SearchIcon />
-    ) : (
-      <ClearIcon onClick={clearSearch} />
-    );
-  };
+  const hasQuery = query.length > 0;
 
   return (
     <div className="relative w-fit">
       <Form method="get" ref={formRef}>
         <input
-          ref={inputRef}
           type="text"
           name="q"
           defaultValue={query}
@@ -52,7 +50,7 @@ export const ProjectSearch = (): JSX.Element => {
         />
       </Form>
       <span className="absolute right-0 top-1/2 -translate-y-1/2 px-2">
-        {renderIcon()}
+        {hasQuery ? <ClearIcon onClick={clearSearch} /> : <SearchIcon />}
       </span>
     </div>
   );
@@ -69,8 +67,8 @@ const SearchIcon = (): JSX.Element => (
 );
 
 const ClearIcon = ({ onClick }: ClearIconProps): JSX.Element => (
-  // onMouseDown is needed because blur (unfocus) happens
-  // before 'click' event, but not before 'onMouseDown'
+  // Use onMouseDown instead of onClick to prevent blur event from firing first,
+  // which would cause the input to lose focus before the clear action triggers
   <button
     onMouseDown={onClick}
     className={cx(

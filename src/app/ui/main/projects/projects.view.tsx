@@ -10,6 +10,8 @@ export const ProjectsView = ({
   searchQuery,
 }: ProjectsViewProps): JSX.Element => {
   const hasProjects = projectsSummary.length > 0;
+  // Only show "no matches" message when actively searching with no results
+  // (don't show it when user has zero projects and isn't searching)
   const showEmptyState = !hasProjects && searchQuery;
 
   return (

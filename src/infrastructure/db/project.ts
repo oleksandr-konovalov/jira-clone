@@ -121,6 +121,25 @@ export const getProjectSummary = async (projectId: ProjectId): Promise<ProjectSu
   return projectSummary;
 };
 
+// Shared mapping logic to convert DB records to domain model
+const mapToProjectSummaries = (
+  projectsDb: Array<{
+    id: string;
+    name: string;
+    description: string | null;
+    image: string;
+    createdAt: Date;
+  }>
+): ProjectSummary[] => {
+  return projectsDb.map((projectDb) => ({
+    id: projectDb.id,
+    name: projectDb.name,
+    image: projectDb.image,
+    description: projectDb.description || "",
+    createdAt: projectDb.createdAt.getDate(),
+  }));
+};
+
 export const getProjectsSummary = async (userId: UserId): Promise<ProjectSummary[]> => {
   const projectsSummaryDb = await db.project.findMany({
     where: {
@@ -142,21 +161,15 @@ export const getProjectsSummary = async (userId: UserId): Promise<ProjectSummary
     },
   });
 
-  const projectsSummary: ProjectSummary[] = projectsSummaryDb.map((projectSummaryDb) => ({
-    id: projectSummaryDb.id,
-    name: projectSummaryDb.name,
-    image: projectSummaryDb.image,
-    description: projectSummaryDb.description || "",
-    createdAt: projectSummaryDb.createdAt.getDate(),
-  }));
-
-  return projectsSummary;
+  return mapToProjectSummaries(projectsSummaryDb);
 };
 
-export const searchProjects = async (
-  userId: UserId,
-  query: string
-): Promise<ProjectSummary[]> => {
+/**
+ * Search for projects matching the query string.
+ * Searches across project name, description, and nested issue IDs/names.
+ * Case-insensitive partial matching.
+ */
+export const searchProjects = async (userId: UserId, query: string): Promise<ProjectSummary[]> => {
   const projectsSummaryDb = await db.project.findMany({
     where: {
       users: {
@@ -164,17 +177,16 @@ export const searchProjects = async (
           id: userId,
         },
       },
+      // Match projects where query appears in name, description, or nested issue
       OR: [
         {
           name: {
             contains: query,
-            mode: "insensitive",
           },
         },
         {
           description: {
             contains: query,
-            mode: "insensitive",
           },
         },
         {
@@ -186,13 +198,11 @@ export const searchProjects = async (
                     {
                       id: {
                         contains: query,
-                        mode: "insensitive",
                       },
                     },
                     {
                       name: {
                         contains: query,
-                        mode: "insensitive",
                       },
                     },
                   ],
@@ -215,15 +225,7 @@ export const searchProjects = async (
     },
   });
 
-  const projectsSummary: ProjectSummary[] = projectsSummaryDb.map((projectSummaryDb) => ({
-    id: projectSummaryDb.id,
-    name: projectSummaryDb.name,
-    image: projectSummaryDb.image,
-    description: projectSummaryDb.description || "",
-    createdAt: projectSummaryDb.createdAt.getDate(),
-  }));
-
-  return projectsSummary;
+  return mapToProjectSummaries(projectsSummaryDb);
 };
 
 type CreateProjectInput = {
