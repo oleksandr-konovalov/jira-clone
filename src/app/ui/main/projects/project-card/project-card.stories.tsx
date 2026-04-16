@@ -66,3 +66,4 @@ export const NonDeletable: Story = {
     project: projectToProjectSummary(projectMock1),
   },
 };
+

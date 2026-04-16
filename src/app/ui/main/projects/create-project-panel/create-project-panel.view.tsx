@@ -214,3 +214,4 @@ const Spinner = (): JSX.Element => (
     />
   </svg>
 );
+
