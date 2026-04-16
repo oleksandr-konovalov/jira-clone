@@ -121,15 +121,43 @@ export const getProjectSummary = async (projectId: ProjectId): Promise<ProjectSu
   return projectSummary;
 };
 
-export const getProjectsSummary = async (userId: UserId): Promise<ProjectSummary[]> => {
-  const projectsSummaryDb = await db.project.findMany({
-    where: {
-      users: {
-        some: {
-          id: userId,
-        },
+export const getProjectsSummary = async (
+  userId: UserId,
+  search?: string
+): Promise<ProjectSummary[]> => {
+  const where: Prisma.ProjectWhereInput = {
+    users: {
+      some: {
+        id: userId,
       },
     },
+    // Search across project name, description, and nested issue data
+    // Case-insensitive matching for better user experience
+    ...(search && {
+      OR: [
+        { name: { contains: search } },
+        { description: { contains: search } },
+        {
+          // Also search within issues to surface projects containing matching tasks
+          categories: {
+            some: {
+              issues: {
+                some: {
+                  OR: [
+                    { id: { contains: search } },
+                    { name: { contains: search } },
+                  ],
+                },
+              },
+            },
+          },
+        },
+      ],
+    }),
+  };
+
+  const projectsSummaryDb = await db.project.findMany({
+    where,
     select: {
       id: true,
       name: true,
