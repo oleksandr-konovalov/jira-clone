@@ -7,36 +7,39 @@ import { Button } from "@app/components/button";
 import { ProjectCard } from "./project-card";
 import { ProjectSearch } from "./project-search";
 
+/**
+ * Filters projects based on search query.
+ * Matches against project name, description, issue IDs, and issue names.
+ */
+const filterProjects = (
+  projects: ProjectSearchData[],
+  query: string
+): ProjectSearchData[] => {
+  if (query === "") return projects;
+
+  const lowercaseQuery = query.toLowerCase();
+
+  return projects.filter((project) => {
+    const matchesName = project.name.toLowerCase().includes(lowercaseQuery);
+    const matchesDescription = project.description
+      ?.toLowerCase()
+      .includes(lowercaseQuery);
+    const matchesIssue = project.issues.some(
+      (issue) =>
+        issue.id.toLowerCase().includes(lowercaseQuery) ||
+        issue.name.toLowerCase().includes(lowercaseQuery)
+    );
+
+    return matchesName || matchesDescription || matchesIssue;
+  });
+};
+
 export const ProjectsView = ({
   projectsSummary,
 }: ProjectsViewProps): JSX.Element => {
   const [search, setSearch] = useState("");
 
-  const filteredProjects = projectsSummary.filter((project) => {
-    if (search === "") return true;
-
-    const query = search.toLowerCase();
-
-    // Match against project name
-    if (project.name.toLowerCase().includes(query)) return true;
-
-    // Match against project description
-    if (project.description?.toLowerCase().includes(query)) return true;
-
-    // Match against any issue ID or name
-    if (
-      project.issues.some(
-        (issue) =>
-          issue.id.toLowerCase().includes(query) ||
-          issue.name.toLowerCase().includes(query)
-      )
-    ) {
-      return true;
-    }
-
-    return false;
-  });
-
+  const filteredProjects = filterProjects(projectsSummary, search);
   const showEmptyState = search !== "" && filteredProjects.length === 0;
 
   return (
@@ -56,7 +59,9 @@ export const ProjectsView = ({
       {showEmptyState ? (
         <div className="mt-16 flex flex-col items-center text-font-subtlest">
           <RxValueNone size={48} />
-          <p className="mt-4 font-primary-light text-sm uppercase">No projects found</p>
+          <p className="mt-4 font-primary-light text-sm uppercase">
+            No projects found
+          </p>
         </div>
       ) : (
         <div className="mt-4 grid grid-cols-[repeat(auto-fit,_400px)] gap-8">

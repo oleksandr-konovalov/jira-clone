@@ -153,7 +153,13 @@ export const getProjectsSummary = async (userId: UserId): Promise<ProjectSummary
   return projectsSummary;
 };
 
-export const getProjectsSummaryWithIssues = async (userId: UserId): Promise<ProjectSearchData[]> => {
+/**
+ * Retrieves project summaries with associated issue data for search functionality.
+ * Issues are flattened from all categories to enable searching across all project issues.
+ */
+export const getProjectsSummaryWithIssues = async (
+  userId: UserId
+): Promise<ProjectSearchData[]> => {
   const projectsSummaryDb = await db.project.findMany({
     where: {
       users: {
@@ -185,7 +191,7 @@ export const getProjectsSummaryWithIssues = async (userId: UserId): Promise<Proj
   });
 
   const projectsSearchData: ProjectSearchData[] = projectsSummaryDb.map((projectSummaryDb) => {
-    // Flatten issues from all categories into a single array
+    // Flatten issues from all categories to support search across all project issues
     const issues = projectSummaryDb.categories.flatMap((category) =>
       category.issues.map((issue) => ({
         id: issue.id,

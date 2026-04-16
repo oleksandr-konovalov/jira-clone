@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import { ProjectSearchData, projectsMock } from "@domain/project";
 import { withRemixStub } from "@app/stories/utils";
 import { ProjectsView } from "./projects.view";
@@ -48,7 +48,7 @@ const meta: Meta<typeof ProjectsView> = {
   parameters: {
     layout: "fullscreen",
   },
-  decorators: [(Story) => withRemixStub(<Story />)],
+  decorators: [(Story: React.ComponentType) => withRemixStub(<Story />)],
 };
 
 export default meta;

@@ -16,11 +16,18 @@ export interface Project {
 // TODO: Make createdAt and updatedAt mandatory
 export type ProjectSummary = Pick<Project, "id" | "name" | "description" | "image" | "createdAt">;
 
+/**
+ * Minimal issue representation for search functionality.
+ * Contains only the essential fields needed to match search queries.
+ */
 export interface ProjectIssueStub {
   id: string;
   name: string;
 }
 
+/**
+ * Extended project summary with issue data to support search across projects and their issues.
+ */
 export type ProjectSearchData = ProjectSummary & {
   issues: ProjectIssueStub[];
 };
