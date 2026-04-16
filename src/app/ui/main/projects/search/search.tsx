@@ -65,11 +65,11 @@ const ClearIcon = ({ onClick }: ClearIconProps): JSX.Element => (
   </button>
 );
 
-interface ClearIconProps {
-  onClick: () => void;
-}
-
 interface ProjectSearchProps {
   search: string;
   setSearch: (search: string) => void;
+}
+
+interface ClearIconProps {
+  onClick: () => void;
 }
