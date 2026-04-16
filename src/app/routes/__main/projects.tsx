@@ -50,6 +50,7 @@ export const meta: V2_MetaFunction = () => {
 
 type LoaderData = {
   projectsSummary: ProjectSummary[];
+  search?: string;
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -60,9 +61,12 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect("/login");
   }
 
-  const projectsSummary = await getProjectsSummary(userId);
+  const url = new URL(request.url);
+  const search = url.searchParams.get("search") || undefined;
 
-  return json<LoaderData>({ projectsSummary });
+  const projectsSummary = await getProjectsSummary(userId, search);
+
+  return json<LoaderData>({ projectsSummary, search });
 };
 
 export const action: ActionFunction = async ({ request }) => {
@@ -92,6 +96,6 @@ export function ErrorBoundary({ error }: { error: Error }) {
 }
 
 export default function ProjectsRoute() {
-  const { projectsSummary } = useLoaderData() as LoaderData;
-  return <ProjectsView projectsSummary={projectsSummary} />;
+  const { projectsSummary, search } = useLoaderData() as LoaderData;
+  return <ProjectsView projectsSummary={projectsSummary} search={search} />;
 }
