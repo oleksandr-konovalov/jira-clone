@@ -191,3 +191,82 @@ export const deleteProject = async (projectId: ProjectId): Promise<void> => {
     },
   });
 };
+
+export const searchProjects = async (
+  userId: UserId,
+  search: string
+): Promise<ProjectSummary[]> => {
+  const searchLower = search.toLowerCase();
+
+  const projectsDb = await db.project.findMany({
+    where: {
+      users: {
+        some: {
+          id: userId,
+        },
+      },
+      OR: [
+        {
+          name: {
+            contains: searchLower,
+            mode: "insensitive",
+          },
+        },
+        {
+          description: {
+            contains: searchLower,
+            mode: "insensitive",
+          },
+        },
+        {
+          categories: {
+            some: {
+              issues: {
+                some: {
+                  name: {
+                    contains: searchLower,
+                    mode: "insensitive",
+                  },
+                },
+              },
+            },
+          },
+        },
+        {
+          categories: {
+            some: {
+              issues: {
+                some: {
+                  id: {
+                    contains: searchLower,
+                    mode: "insensitive",
+                  },
+                },
+              },
+            },
+          },
+        },
+      ],
+    },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      image: true,
+      createdAt: true,
+    },
+    orderBy: {
+      createdAt: "asc",
+    },
+  });
+
+  const projectsSummary: ProjectSummary[] = projectsDb.map((projectDb) => ({
+    id: projectDb.id,
+    name: projectDb.name,
+    image: projectDb.image,
+    description: projectDb.description || "",
+    createdAt: projectDb.createdAt.getDate(),
+  }));
+
+  return projectsSummary;
+};

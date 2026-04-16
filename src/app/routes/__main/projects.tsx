@@ -6,7 +6,7 @@ import type {
 import { json, redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { ProjectId, ProjectSummary } from "@domain/project";
-import { getProjectsSummary, deleteProject } from "@infrastructure/db/project";
+import { getProjectsSummary, deleteProject, searchProjects } from "@infrastructure/db/project";
 import { getUserSession } from "@app/session-storage";
 import { ProjectsView } from "@app/ui/main/projects";
 import { formatTags, formatProperties } from "@utils/meta";
@@ -50,6 +50,7 @@ export const meta: V2_MetaFunction = () => {
 
 type LoaderData = {
   projectsSummary: ProjectSummary[];
+  search: string;
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -60,9 +61,15 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect("/login");
   }
 
-  const projectsSummary = await getProjectsSummary(userId);
+  const url = new URL(request.url);
+  const search = url.searchParams.get("search") || "";
 
-  return json<LoaderData>({ projectsSummary });
+  const projectsSummary =
+    search.trim() !== ""
+      ? await searchProjects(userId, search)
+      : await getProjectsSummary(userId);
+
+  return json<LoaderData>({ projectsSummary, search });
 };
 
 export const action: ActionFunction = async ({ request }) => {
@@ -92,6 +99,6 @@ export function ErrorBoundary({ error }: { error: Error }) {
 }
 
 export default function ProjectsRoute() {
-  const { projectsSummary } = useLoaderData() as LoaderData;
-  return <ProjectsView projectsSummary={projectsSummary} />;
+  const { projectsSummary, search } = useLoaderData() as LoaderData;
+  return <ProjectsView projectsSummary={projectsSummary} search={search} />;
 }
