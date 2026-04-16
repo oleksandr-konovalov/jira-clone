@@ -1,7 +1,13 @@
 import { Prisma } from "@prisma/client";
 
 import { UserId } from "@domain/user";
-import { Project, ProjectSummary, ProjectId } from "@domain/project";
+import {
+  Project,
+  ProjectSummary,
+  ProjectId,
+  ProjectSearchData,
+  ProjectIssueStub,
+} from "@domain/project";
 import { Category, CategoryType } from "@domain/category";
 import { Priority } from "@domain/priority";
 import { Sort } from "@domain/filter";
@@ -151,6 +157,61 @@ export const getProjectsSummary = async (userId: UserId): Promise<ProjectSummary
   }));
 
   return projectsSummary;
+};
+
+/**
+ * Retrieves project summaries with associated issues for search functionality.
+ * Issues from all categories are flattened into a single array per project.
+ */
+export const getProjectsSummaryWithIssues = async (
+  userId: UserId
+): Promise<ProjectSearchData[]> => {
+  const projectsDb = await db.project.findMany({
+    where: {
+      users: {
+        some: {
+          id: userId,
+        },
+      },
+    },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      image: true,
+      createdAt: true,
+      categories: {
+        select: {
+          issues: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "asc",
+    },
+  });
+
+  const projectsSearchData: ProjectSearchData[] = projectsDb.map((projectDb) => {
+    // Flatten all issues from all categories into a single array for search
+    const issues: ProjectIssueStub[] = projectDb.categories.flatMap((category) => category.issues);
+
+    return {
+      id: projectDb.id,
+      name: projectDb.name,
+      image: projectDb.image,
+      description: projectDb.description || "",
+      // Note: getDate() returns day of month (1-31), matching the existing getProjectsSummary implementation
+      createdAt: projectDb.createdAt.getDate(),
+      issues,
+    };
+  });
+
+  return projectsSearchData;
 };
 
 type CreateProjectInput = {
