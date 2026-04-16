@@ -1,43 +1,39 @@
 @font-face {
-  font-family: "CircularStdLight";
-  src: 
-    url('../../../public/fonts/CircularStd-Book.woff2') format('woff2'),
-    url('../../../public/fonts/CircularStd-Book.woff') format('woff');
+  font-family: "PoppinsLight";
+  src: url("../../../public/fonts/Poppins-Light.woff2") format("woff2"),
+    url("../../../public/fonts/Poppins-Light.woff") format("woff");
 
-  font-weight: normal;
-  font-style: normal;
-  ffont-display: swap;
-}
-
-@font-face {
-  font-family: "CircularStdMedium";
-  src: 
-    url('../../../public/fonts/CircularStd-Medium.woff2') format('woff2'),
-    url('../../../public/fonts/CircularStd-Medium.woff') format('woff');
-
-  font-weight: normal;
+  font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "CircularStdBold";
-  src: 
-    url('../../../public/fonts/CircularStd-Bold.woff2') format('woff2'),
-    url('../../../public/fonts/CircularStd-Bold.woff') format('woff');
+  font-family: "PoppinsMedium";
+  src: url("../../../public/fonts/Poppins-Medium.woff2") format("woff2"),
+    url("../../../public/fonts/Poppins-Medium.woff") format("woff");
 
-  font-weight: normal;
+  font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "CircularStdBlack";
-  src: 
-    url('../../../public/fonts/CircularStd-Black.woff2') format('woff2'),
-    url('../../../public/fonts/CircularStd-Black.woff') format('woff');
+  font-family: "PoppinsBold";
+  src: url("../../../public/fonts/Poppins-Bold.woff2") format("woff2"),
+    url("../../../public/fonts/Poppins-Bold.woff") format("woff");
 
-  font-weight: normal;
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PoppinsBlack";
+  src: url("../../../public/fonts/Poppins-Black.woff2") format("woff2"),
+    url("../../../public/fonts/Poppins-Black.woff") format("woff");
+
+  font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
