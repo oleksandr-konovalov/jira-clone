@@ -3,15 +3,11 @@ import cx from "classix";
 import { BiSearch } from "react-icons/bi";
 import { IoCloseOutline } from "react-icons/io5";
 
-export const ProjectSearch = ({ search, setSearch }: ProjectSearchProps): JSX.Element => {
+export const ProjectSearch = ({
+  search,
+  setSearch,
+}: ProjectSearchProps): JSX.Element => {
   const clearSearch = () => setSearch("");
-  const renderIcon = (): JSX.Element => {
-    return search.length === 0 ? (
-      <SearchIcon />
-    ) : (
-      <ClearIcon onClick={clearSearch} />
-    );
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setSearch(e.target.value);
@@ -34,7 +30,11 @@ export const ProjectSearch = ({ search, setSearch }: ProjectSearchProps): JSX.El
         )}
       />
       <span className="absolute right-0 top-1/2 -translate-y-1/2 px-2">
-        {renderIcon()}
+        {search.length === 0 ? (
+          <SearchIcon />
+        ) : (
+          <ClearIcon onClick={clearSearch} />
+        )}
       </span>
     </div>
   );
@@ -51,8 +51,7 @@ const SearchIcon = (): JSX.Element => (
 );
 
 const ClearIcon = ({ onClick }: ClearIconProps): JSX.Element => (
-  // onMouseDown is needed because blur (unfocus) happens
-  // before 'click' event, but not before 'onMouseDown'
+  // Using onMouseDown instead of onClick to ensure the handler fires before the input's blur event
   <button
     onMouseDown={onClick}
     className={cx(
@@ -73,3 +72,4 @@ interface ProjectSearchProps {
 interface ClearIconProps {
   onClick: () => void;
 }
+

@@ -6,31 +6,40 @@ import { Button } from "@app/components/button";
 import { ProjectCard } from "./project-card";
 import { ProjectSearch } from "./search";
 
+/**
+ * Filters a project based on search query matching against:
+ * - Project name
+ * - Project description
+ * - Issue IDs and names within the project
+ */
+const matchesSearch = (
+  project: ProjectSearchData,
+  searchQuery: string
+): boolean => {
+  if (searchQuery === "") return true;
+
+  const searchLower = searchQuery.toLowerCase();
+
+  if (project.name.toLowerCase().includes(searchLower)) return true;
+  if (project.description?.toLowerCase().includes(searchLower)) return true;
+
+  // Search within issue IDs and names
+  const hasMatchingIssue = project.issues.some(
+    (issue) =>
+      issue.id.toLowerCase().includes(searchLower) ||
+      issue.name.toLowerCase().includes(searchLower)
+  );
+
+  return hasMatchingIssue;
+};
+
 export const ProjectsView = ({
   projectsSummary,
 }: ProjectsViewProps): JSX.Element => {
   const [search, setSearch] = useState("");
-
-  const filteredProjects = projectsSummary.filter((project) => {
-    if (search === "") return true;
-
-    const searchLower = search.toLowerCase();
-
-    // Check project name
-    if (project.name.toLowerCase().includes(searchLower)) return true;
-
-    // Check project description
-    if (project.description?.toLowerCase().includes(searchLower)) return true;
-
-    // Check any issue id or name
-    const hasMatchingIssue = project.issues.some(
-      (issue) =>
-        issue.id.toLowerCase().includes(searchLower) ||
-        issue.name.toLowerCase().includes(searchLower)
-    );
-
-    return hasMatchingIssue;
-  });
+  const filteredProjects = projectsSummary.filter((project) =>
+    matchesSearch(project, search)
+  );
 
   return (
     <div className="p-6">
@@ -61,3 +70,4 @@ export const ProjectsView = ({
 interface ProjectsViewProps {
   projectsSummary: ProjectSearchData[];
 }
+

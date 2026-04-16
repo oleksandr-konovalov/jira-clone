@@ -89,3 +89,4 @@ export const ProjectCard = ({ project }: Props): JSX.Element => {
 interface Props {
   project: ProjectSummary;
 }
+

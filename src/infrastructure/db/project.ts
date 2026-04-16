@@ -1,7 +1,13 @@
 import { Prisma } from "@prisma/client";
 
 import { UserId } from "@domain/user";
-import { Project, ProjectSummary, ProjectId, ProjectSearchData, ProjectIssueStub } from "@domain/project";
+import {
+  Project,
+  ProjectSummary,
+  ProjectId,
+  ProjectSearchData,
+  ProjectIssueStub,
+} from "@domain/project";
 import { Category, CategoryType } from "@domain/category";
 import { Priority } from "@domain/priority";
 import { Sort } from "@domain/filter";
@@ -153,7 +159,9 @@ export const getProjectsSummary = async (userId: UserId): Promise<ProjectSummary
   return projectsSummary;
 };
 
-export const getProjectsSummaryWithIssues = async (userId: UserId): Promise<ProjectSearchData[]> => {
+export const getProjectsSummaryWithIssues = async (
+  userId: UserId
+): Promise<ProjectSearchData[]> => {
   const projectsDb = await db.project.findMany({
     where: {
       users: {
@@ -185,7 +193,8 @@ export const getProjectsSummaryWithIssues = async (userId: UserId): Promise<Proj
   });
 
   const projectsSearchData: ProjectSearchData[] = projectsDb.map((projectDb) => {
-    // Flatten categories→issues into a single array
+    // Flatten all issues from nested categories into a single searchable array
+    // This allows searching across all project issues regardless of category
     const issues: ProjectIssueStub[] = projectDb.categories.flatMap((category) =>
       category.issues.map((issue) => ({
         id: issue.id,
