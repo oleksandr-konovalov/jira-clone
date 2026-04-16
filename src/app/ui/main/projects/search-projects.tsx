@@ -8,17 +8,11 @@ export const SearchProjects = ({
   setSearch,
 }: SearchProjectsProps): JSX.Element => {
   const clearSearch = () => setSearch("");
-  const renderIcon = (): JSX.Element => {
-    return search.length === 0 ? (
-      <SearchIcon />
-    ) : (
-      <ClearIcon onClick={clearSearch} />
-    );
-  };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setSearch(e.target.value);
   };
+
+  const hasSearchText = search.length > 0;
 
   return (
     <div className="relative w-fit">
@@ -37,7 +31,7 @@ export const SearchProjects = ({
         )}
       />
       <span className="absolute right-0 top-1/2 -translate-y-1/2 px-2">
-        {renderIcon()}
+        {hasSearchText ? <ClearIcon onClick={clearSearch} /> : <SearchIcon />}
       </span>
     </div>
   );
@@ -54,8 +48,8 @@ const SearchIcon = (): JSX.Element => (
 );
 
 const ClearIcon = ({ onClick }: ClearIconProps): JSX.Element => (
-  // onMouseDown is needed because blur (unfocus) happens
-  // before 'click' event, but not before 'onMouseDown'
+  // Use onMouseDown instead of onClick to handle the event before the input's blur event,
+  // ensuring the clear action fires even if the user clicks the button while the input is focused
   <button
     onMouseDown={onClick}
     className={cx(

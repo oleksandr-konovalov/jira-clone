@@ -6,23 +6,38 @@ import { Button } from "@app/components/button";
 import { ProjectCard } from "./project-card";
 import { SearchProjects } from "./search-projects";
 
+/**
+ * Filters projects by search query.
+ * Searches across project name, description, and associated issue IDs and names.
+ */
+const filterProjectsBySearch = (
+  projects: ProjectSearchData[],
+  searchQuery: string
+): ProjectSearchData[] => {
+  if (!searchQuery) return projects;
+
+  const query = searchQuery.toLowerCase();
+
+  return projects.filter((project) => {
+    const matchesName = project.name.toLowerCase().includes(query);
+    const matchesDescription = project.description
+      ?.toLowerCase()
+      .includes(query);
+    const matchesIssue = project.issues.some(
+      (issue) =>
+        issue.id.toLowerCase().includes(query) ||
+        issue.name.toLowerCase().includes(query)
+    );
+
+    return matchesName || matchesDescription || matchesIssue;
+  });
+};
+
 export const ProjectsView = ({
   projectsSearchData,
 }: ProjectsViewProps): JSX.Element => {
   const [search, setSearch] = useState<string>("");
-
-  const filteredProjects = projectsSearchData.filter((project) => {
-    const q = search.toLowerCase();
-    return (
-      project.name.toLowerCase().includes(q) ||
-      (project.description?.toLowerCase().includes(q)) ||
-      project.issues.some(
-        (issue) =>
-          issue.id.toLowerCase().includes(q) ||
-          issue.name.toLowerCase().includes(q)
-      )
-    );
-  });
+  const filteredProjects = filterProjectsBySearch(projectsSearchData, search);
 
   return (
     <div className="p-6">

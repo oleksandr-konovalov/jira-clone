@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import { ProjectSearchData } from "@domain/project";
 import { withRemixStub } from "@app/stories/utils";
 import { ProjectsView } from "./projects.view";
@@ -9,7 +9,7 @@ const meta: Meta<typeof ProjectsView> = {
   parameters: {
     layout: "fullscreen",
   },
-  decorators: [(Story) => withRemixStub(<Story />)],
+  decorators: [(Story: React.ComponentType) => withRemixStub(<Story />)],
 };
 
 export default meta;
@@ -32,7 +32,8 @@ const mockProjectsSearchData: ProjectSearchData[] = [
   {
     id: "e-commerce-platform",
     name: "E-Commerce Platform",
-    description: "Full-featured online shopping platform with payment integration",
+    description:
+      "Full-featured online shopping platform with payment integration",
     image: "/images/projects/2.svg",
     createdAt: new Date("2023-03-20").valueOf(),
     issues: [
@@ -56,7 +57,8 @@ const mockProjectsSearchData: ProjectSearchData[] = [
   {
     id: "analytics-dashboard",
     name: "Analytics Dashboard",
-    description: "Real-time data visualization and reporting tool for business metrics",
+    description:
+      "Real-time data visualization and reporting tool for business metrics",
     image: "/images/projects/4.svg",
     createdAt: new Date("2023-07-01").valueOf(),
     issues: [
@@ -91,7 +93,8 @@ export const WithManyProjects: Story = {
       {
         id: "design-system",
         name: "Design System",
-        description: "Shared component library and design tokens for all products",
+        description:
+          "Shared component library and design tokens for all products",
         image: "/images/projects/6.svg",
         createdAt: new Date("2023-09-01").valueOf(),
         issues: [
