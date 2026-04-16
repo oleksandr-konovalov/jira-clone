@@ -1,5 +1,15 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "./button";
+
+// All available button colors for comprehensive variant testing
+const BUTTON_COLORS = [
+  "primary",
+  "neutral",
+  "success",
+  "danger",
+  "warning",
+  "info",
+] as const;
 
 const meta: Meta<typeof Button> = {
   title: "Components/Button",
@@ -38,14 +48,15 @@ export const Default: Story = {
 export const Contained: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
-      <div className="text-font-subtle text-sm font-medium">Contained Variant</div>
+      <div className="text-sm font-medium text-font-subtle">
+        Contained Variant
+      </div>
       <div className="flex flex-wrap gap-3">
-        <Button color="primary" variant="contained">Primary</Button>
-        <Button color="neutral" variant="contained">Neutral</Button>
-        <Button color="success" variant="contained">Success</Button>
-        <Button color="danger" variant="contained">Danger</Button>
-        <Button color="warning" variant="contained">Warning</Button>
-        <Button color="info" variant="contained">Info</Button>
+        {BUTTON_COLORS.map((color) => (
+          <Button key={color} color={color} variant="contained">
+            {color.charAt(0).toUpperCase() + color.slice(1)}
+          </Button>
+        ))}
       </div>
     </div>
   ),
@@ -54,14 +65,13 @@ export const Contained: Story = {
 export const Text: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
-      <div className="text-font-subtle text-sm font-medium">Text Variant</div>
+      <div className="text-sm font-medium text-font-subtle">Text Variant</div>
       <div className="flex flex-wrap gap-3">
-        <Button color="primary" variant="text">Primary</Button>
-        <Button color="neutral" variant="text">Neutral</Button>
-        <Button color="success" variant="text">Success</Button>
-        <Button color="danger" variant="text">Danger</Button>
-        <Button color="warning" variant="text">Warning</Button>
-        <Button color="info" variant="text">Info</Button>
+        {BUTTON_COLORS.map((color) => (
+          <Button key={color} color={color} variant="text">
+            {color.charAt(0).toUpperCase() + color.slice(1)}
+          </Button>
+        ))}
       </div>
     </div>
   ),
@@ -70,57 +80,58 @@ export const Text: Story = {
 export const Subtlest: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
-      <div className="text-font-subtle text-sm font-medium">Subtlest Variant</div>
+      <div className="text-sm font-medium text-font-subtle">
+        Subtlest Variant
+      </div>
       <div className="flex flex-wrap gap-3">
-        <Button color="primary" variant="subtlest">Primary</Button>
-        <Button color="neutral" variant="subtlest">Neutral</Button>
-        <Button color="success" variant="subtlest">Success</Button>
-        <Button color="danger" variant="subtlest">Danger</Button>
-        <Button color="warning" variant="subtlest">Warning</Button>
-        <Button color="info" variant="subtlest">Info</Button>
+        {BUTTON_COLORS.map((color) => (
+          <Button key={color} color={color} variant="subtlest">
+            {color.charAt(0).toUpperCase() + color.slice(1)}
+          </Button>
+        ))}
       </div>
     </div>
   ),
 };
 
+// Comprehensive showcase of all button variants to demonstrate the Poppins font update
 export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-col gap-6 p-4">
-      <h2 className="text-xl font-semibold">Button Variants with Poppins Font</h2>
-      
+      <h2 className="text-xl font-semibold">
+        Button Variants with Poppins Font
+      </h2>
+
       <div className="flex flex-col gap-4">
-        <div className="text-font-subtle text-sm font-medium">Contained</div>
+        <div className="text-sm font-medium text-font-subtle">Contained</div>
         <div className="flex flex-wrap gap-3">
-          <Button color="primary" variant="contained">Primary</Button>
-          <Button color="neutral" variant="contained">Neutral</Button>
-          <Button color="success" variant="contained">Success</Button>
-          <Button color="danger" variant="contained">Danger</Button>
-          <Button color="warning" variant="contained">Warning</Button>
-          <Button color="info" variant="contained">Info</Button>
+          {BUTTON_COLORS.map((color) => (
+            <Button key={color} color={color} variant="contained">
+              {color.charAt(0).toUpperCase() + color.slice(1)}
+            </Button>
+          ))}
         </div>
       </div>
 
       <div className="flex flex-col gap-4">
-        <div className="text-font-subtle text-sm font-medium">Text</div>
+        <div className="text-sm font-medium text-font-subtle">Text</div>
         <div className="flex flex-wrap gap-3">
-          <Button color="primary" variant="text">Primary</Button>
-          <Button color="neutral" variant="text">Neutral</Button>
-          <Button color="success" variant="text">Success</Button>
-          <Button color="danger" variant="text">Danger</Button>
-          <Button color="warning" variant="text">Warning</Button>
-          <Button color="info" variant="text">Info</Button>
+          {BUTTON_COLORS.map((color) => (
+            <Button key={color} color={color} variant="text">
+              {color.charAt(0).toUpperCase() + color.slice(1)}
+            </Button>
+          ))}
         </div>
       </div>
 
       <div className="flex flex-col gap-4">
-        <div className="text-font-subtle text-sm font-medium">Subtlest</div>
+        <div className="text-sm font-medium text-font-subtle">Subtlest</div>
         <div className="flex flex-wrap gap-3">
-          <Button color="primary" variant="subtlest">Primary</Button>
-          <Button color="neutral" variant="subtlest">Neutral</Button>
-          <Button color="success" variant="subtlest">Success</Button>
-          <Button color="danger" variant="subtlest">Danger</Button>
-          <Button color="warning" variant="subtlest">Warning</Button>
-          <Button color="info" variant="subtlest">Info</Button>
+          {BUTTON_COLORS.map((color) => (
+            <Button key={color} color={color} variant="subtlest">
+              {color.charAt(0).toUpperCase() + color.slice(1)}
+            </Button>
+          ))}
         </div>
       </div>
     </div>
@@ -130,11 +141,19 @@ export const AllVariants: Story = {
 export const LargeSizes: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
-      <div className="text-font-subtle text-sm font-medium">Large Size Buttons</div>
+      <div className="text-sm font-medium text-font-subtle">
+        Large Size Buttons
+      </div>
       <div className="flex flex-wrap gap-3">
-        <Button color="primary" variant="contained" size="lg">Primary Large</Button>
-        <Button color="neutral" variant="contained" size="lg">Neutral Large</Button>
-        <Button color="success" variant="contained" size="lg">Success Large</Button>
+        <Button color="primary" variant="contained" size="lg">
+          Primary Large
+        </Button>
+        <Button color="neutral" variant="contained" size="lg">
+          Neutral Large
+        </Button>
+        <Button color="success" variant="contained" size="lg">
+          Success Large
+        </Button>
       </div>
     </div>
   ),
