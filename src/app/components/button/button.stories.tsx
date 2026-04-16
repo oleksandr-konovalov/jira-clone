@@ -1,5 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
-
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Button } from "./button";
 
 const meta: Meta<typeof Button> = {
@@ -9,29 +8,17 @@ const meta: Meta<typeof Button> = {
     layout: "centered",
   },
   argTypes: {
-    children: {
-      control: {
-        type: "text",
-      },
-    },
     color: {
-      control: {
-        type: "select",
-        options: ["primary", "neutral", "danger"],
-      },
+      control: "select",
+      options: ["primary", "neutral", "success", "danger", "warning", "info"],
     },
     variant: {
-      description: "The variant of the button",
-      control: {
-        type: "select",
-        options: ["contained", "text"],
-      },
+      control: "select",
+      options: ["contained", "subtlest", "text"],
     },
     size: {
-      control: {
-        type: "select",
-        options: ["md", "lg"],
-      },
+      control: "select",
+      options: ["md", "lg"],
     },
   },
 };
@@ -40,201 +27,115 @@ export default meta;
 type Story = StoryObj<typeof Button>;
 
 export const Default: Story = {
+  args: {
+    children: "Button",
+    color: "primary",
+    variant: "contained",
+    size: "md",
+  },
+};
+
+export const Contained: Story = {
   render: () => (
-    <>
-      <div className="grid grid-cols-6 gap-4 p-4">
-        {[
-          Primary,
-          Neutral,
-          Success,
-          Danger,
-          Warning,
-          Info,
-          PrimarySubtle,
-          NeutralSubtle,
-          SuccessSubtle,
-          DangerSubtle,
-          WarningSubtle,
-          InfoSubtle,
-          PrimaryText,
-          NeutralText,
-          SuccessText,
-          DangerText,
-          WarningText,
-          InfoText,
-        ].map((ButtonStory, index) => (
-          <Button {...ButtonStory.args} className="w-fit" key={index}>
-            {ButtonStory.args?.children}
-          </Button>
-        ))}
+    <div className="flex flex-col gap-4">
+      <div className="text-font-subtle text-sm font-medium">Contained Variant</div>
+      <div className="flex flex-wrap gap-3">
+        <Button color="primary" variant="contained">Primary</Button>
+        <Button color="neutral" variant="contained">Neutral</Button>
+        <Button color="success" variant="contained">Success</Button>
+        <Button color="danger" variant="contained">Danger</Button>
+        <Button color="warning" variant="contained">Warning</Button>
+        <Button color="info" variant="contained">Info</Button>
       </div>
-      <div className="grid grid-cols-3 gap-4">
-        {[PrimaryContainedBig, PrimarySubtleBig, PrimaryTextBig].map(
-          (ButtonStory, index) => (
-            <Button {...ButtonStory.args} className="w-fit" key={index}>
-              {ButtonStory.args?.children}
-            </Button>
-          )
-        )}
-      </div>
-    </>
+    </div>
   ),
 };
 
-export const Primary: Story = {
-  args: {
-    children: "Primary",
-  },
+export const Text: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4">
+      <div className="text-font-subtle text-sm font-medium">Text Variant</div>
+      <div className="flex flex-wrap gap-3">
+        <Button color="primary" variant="text">Primary</Button>
+        <Button color="neutral" variant="text">Neutral</Button>
+        <Button color="success" variant="text">Success</Button>
+        <Button color="danger" variant="text">Danger</Button>
+        <Button color="warning" variant="text">Warning</Button>
+        <Button color="info" variant="text">Info</Button>
+      </div>
+    </div>
+  ),
 };
 
-export const Neutral: Story = {
-  args: {
-    color: "neutral",
-    children: "Neutral",
-  },
+export const Subtlest: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4">
+      <div className="text-font-subtle text-sm font-medium">Subtlest Variant</div>
+      <div className="flex flex-wrap gap-3">
+        <Button color="primary" variant="subtlest">Primary</Button>
+        <Button color="neutral" variant="subtlest">Neutral</Button>
+        <Button color="success" variant="subtlest">Success</Button>
+        <Button color="danger" variant="subtlest">Danger</Button>
+        <Button color="warning" variant="subtlest">Warning</Button>
+        <Button color="info" variant="subtlest">Info</Button>
+      </div>
+    </div>
+  ),
 };
 
-export const Success: Story = {
-  args: {
-    color: "success",
-    children: "Success",
-  },
+export const AllVariants: Story = {
+  render: () => (
+    <div className="flex flex-col gap-6 p-4">
+      <h2 className="text-xl font-semibold">Button Variants with Poppins Font</h2>
+      
+      <div className="flex flex-col gap-4">
+        <div className="text-font-subtle text-sm font-medium">Contained</div>
+        <div className="flex flex-wrap gap-3">
+          <Button color="primary" variant="contained">Primary</Button>
+          <Button color="neutral" variant="contained">Neutral</Button>
+          <Button color="success" variant="contained">Success</Button>
+          <Button color="danger" variant="contained">Danger</Button>
+          <Button color="warning" variant="contained">Warning</Button>
+          <Button color="info" variant="contained">Info</Button>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-4">
+        <div className="text-font-subtle text-sm font-medium">Text</div>
+        <div className="flex flex-wrap gap-3">
+          <Button color="primary" variant="text">Primary</Button>
+          <Button color="neutral" variant="text">Neutral</Button>
+          <Button color="success" variant="text">Success</Button>
+          <Button color="danger" variant="text">Danger</Button>
+          <Button color="warning" variant="text">Warning</Button>
+          <Button color="info" variant="text">Info</Button>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-4">
+        <div className="text-font-subtle text-sm font-medium">Subtlest</div>
+        <div className="flex flex-wrap gap-3">
+          <Button color="primary" variant="subtlest">Primary</Button>
+          <Button color="neutral" variant="subtlest">Neutral</Button>
+          <Button color="success" variant="subtlest">Success</Button>
+          <Button color="danger" variant="subtlest">Danger</Button>
+          <Button color="warning" variant="subtlest">Warning</Button>
+          <Button color="info" variant="subtlest">Info</Button>
+        </div>
+      </div>
+    </div>
+  ),
 };
 
-export const Danger: Story = {
-  args: {
-    color: "danger",
-    children: "Danger",
-  },
-};
-
-export const Warning: Story = {
-  args: {
-    color: "warning",
-    children: "Warning",
-  },
-};
-
-export const Info: Story = {
-  args: {
-    color: "info",
-    children: "Info",
-  },
-};
-
-export const PrimarySubtle: Story = {
-  args: {
-    variant: "subtlest",
-    children: "Primary",
-  },
-};
-
-export const NeutralSubtle: Story = {
-  args: {
-    variant: "subtlest",
-    color: "neutral",
-    children: "Neutral",
-  },
-};
-
-export const SuccessSubtle: Story = {
-  args: {
-    variant: "subtlest",
-    color: "success",
-    children: "Success",
-  },
-};
-
-export const DangerSubtle: Story = {
-  args: {
-    variant: "subtlest",
-    color: "danger",
-    children: "Danger",
-  },
-};
-
-export const WarningSubtle: Story = {
-  args: {
-    variant: "subtlest",
-    color: "warning",
-    children: "Warning",
-  },
-};
-
-export const InfoSubtle: Story = {
-  args: {
-    variant: "subtlest",
-    color: "info",
-    children: "Info",
-  },
-};
-
-export const PrimaryText: Story = {
-  args: {
-    variant: "text",
-    children: "Primary",
-  },
-};
-
-export const NeutralText: Story = {
-  args: {
-    variant: "text",
-    color: "neutral",
-    children: "Neutral",
-  },
-};
-
-export const SuccessText: Story = {
-  args: {
-    variant: "text",
-    color: "success",
-    children: "Success",
-  },
-};
-
-export const DangerText: Story = {
-  args: {
-    variant: "text",
-    color: "danger",
-    children: "Danger",
-  },
-};
-
-export const WarningText: Story = {
-  args: {
-    variant: "text",
-    color: "warning",
-    children: "Warning",
-  },
-};
-
-export const InfoText: Story = {
-  args: {
-    variant: "text",
-    color: "info",
-    children: "Info",
-  },
-};
-
-export const PrimaryContainedBig: Story = {
-  args: {
-    size: "lg",
-    children: "Primary",
-  },
-};
-
-export const PrimarySubtleBig: Story = {
-  args: {
-    variant: "subtlest",
-    size: "lg",
-    children: "Primary",
-  },
-};
-
-export const PrimaryTextBig: Story = {
-  args: {
-    variant: "text",
-    size: "lg",
-    children: "Primary",
-  },
+export const LargeSizes: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4">
+      <div className="text-font-subtle text-sm font-medium">Large Size Buttons</div>
+      <div className="flex flex-wrap gap-3">
+        <Button color="primary" variant="contained" size="lg">Primary Large</Button>
+        <Button color="neutral" variant="contained" size="lg">Neutral Large</Button>
+        <Button color="success" variant="contained" size="lg">Success Large</Button>
+      </div>
+    </div>
+  ),
 };
