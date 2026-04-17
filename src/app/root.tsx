@@ -162,7 +162,7 @@ const errorComponentStyle: CSSProperties = {
   transform: "translate(-50%, -50%)",
   textAlign: "center",
   color: "#0052cc",
-  fontFamily: "sans-serif",
+  fontFamily: '"Poppins", sans-serif',
   fontWeight: "bold",
 };
 
