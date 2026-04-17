@@ -192,7 +192,6 @@ module.exports = {
       black: "black",
       transparent: "transparent",
     },
-
     boxShadow: {
       xs: "rgba(0,0,0, 0.2) 0px 1px 1px, rgba(0,0,0, 0.2) 0px 0px 1px",
       sm: "rgba(9, 30, 66, 0.25) 0px 1px 1px 0px, rgba(9, 30, 66, 0.31) 0px 0px 1px 0px",
@@ -297,6 +296,8 @@ module.exports = {
             display: "none",
           },
         },
+        // Custom font utilities for Poppins with specific weights
+        // Defined as utilities rather than theme.fontFamily to couple font-family with weight
         ".font-primary-light": {
           "font-family": '"Poppins", sans-serif',
           "font-weight": "300",
