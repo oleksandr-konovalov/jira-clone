@@ -1,12 +1,16 @@
-import type { PartialStoryFn } from "@storybook/csf";
-import { unstable_createRemixStub as createRemixStub } from "@remix-run/testing";
+import type { Decorator } from "@storybook/react";
+import {
+  unstable_createRemixStub as createRemixStub,
+} from "@remix-run/testing";
 import { userMock1 } from "@domain/user";
 import { UserContextProvider } from "@app/store/user.store";
-import { ThemeProvider, Theme, Preference } from "@app/store/theme.store";
+import {
+  ThemeProvider,
+  Theme,
+  Preference,
+} from "@app/store/theme.store";
 
-type Story = PartialStoryFn<any, Record<string, never>>;
-
-export const withMainContext = (Story: Story): JSX.Element => {
+export const withMainContext: Decorator = (Story) => {
   return (
     <UserContextProvider user={userMock1}>
       <ThemeProvider

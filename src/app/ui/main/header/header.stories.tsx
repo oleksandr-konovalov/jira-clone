@@ -1,5 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { withMainContext, withRemixStub } from "@app/stories/utils";
+import {
+  withMainContext,
+  withRemixStub,
+} from "@app/stories/utils";
 import { Header } from "./header";
 
 const meta: Meta<typeof Header> = {
@@ -9,8 +12,10 @@ const meta: Meta<typeof Header> = {
     layout: "top",
   },
   decorators: [
-    (Story) => (
-      <div className="w-full">{withRemixStub(withMainContext(Story))}</div>
+    (Story, context) => (
+      <div className="w-full">
+        {withRemixStub(withMainContext(Story, context))}
+      </div>
     ),
   ],
 };
