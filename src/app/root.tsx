@@ -124,7 +124,7 @@ const App = (): JSX.Element => {
         <Meta />
         <Links />
       </head>
-      <body className="h-full bg-elevation-surface font-primary text-font">
+      <body className="h-full bg-elevation-surface text-font font-primary">
         <Outlet />
         <ScrollRestoration />
         <Scripts />
@@ -162,7 +162,7 @@ const errorComponentStyle: CSSProperties = {
   transform: "translate(-50%, -50%)",
   textAlign: "center",
   color: "#0052cc",
-  fontFamily: "sans-serif",
+  fontFamily: '"Poppins", sans-serif',
   fontWeight: "bold",
 };
 

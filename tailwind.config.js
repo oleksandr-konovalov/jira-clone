@@ -192,12 +192,6 @@ module.exports = {
       black: "black",
       transparent: "transparent",
     },
-    fontFamily: {
-      "primary-light": ["CircularStdLight", "sans-serif"],
-      primary: ["CircularStdMedium", "sans-serif"],
-      "primary-bold": ["CircularStdBold", "sans-serif"],
-      "primary-black": ["CircularStdBlack", "sans-serif"],
-    },
     boxShadow: {
       xs: "rgba(0,0,0, 0.2) 0px 1px 1px, rgba(0,0,0, 0.2) 0px 0px 1px",
       sm: "rgba(9, 30, 66, 0.25) 0px 1px 1px 0px, rgba(9, 30, 66, 0.31) 0px 0px 1px 0px",
@@ -301,6 +295,24 @@ module.exports = {
           "&::-webkit-scrollbar": {
             display: "none",
           },
+        },
+        // Custom font utilities for Poppins with specific weights
+        // Defined as utilities rather than theme.fontFamily to couple font-family with weight
+        ".font-primary-light": {
+          "font-family": '"Poppins", sans-serif',
+          "font-weight": "300",
+        },
+        ".font-primary": {
+          "font-family": '"Poppins", sans-serif',
+          "font-weight": "500",
+        },
+        ".font-primary-bold": {
+          "font-family": '"Poppins", sans-serif',
+          "font-weight": "700",
+        },
+        ".font-primary-black": {
+          "font-family": '"Poppins", sans-serif',
+          "font-weight": "900",
         },
       })
     ),
