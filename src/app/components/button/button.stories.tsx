@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Button } from "./button";
 
@@ -236,5 +236,58 @@ export const PrimaryTextBig: Story = {
     variant: "text",
     size: "lg",
     children: "Primary",
+  },
+};
+
+/**
+ * Font Showcase Stories - Demonstrates Poppins font family rendering
+ * across different font weights (Light, Medium, Bold)
+ */
+export const FontShowcase: Story = {
+  render: () => (
+    <div className="flex flex-col gap-6 p-8">
+      <div className="mb-4">
+        <h3 className="text-font-subtle text-sm mb-2">Poppins Font Family Showcase</h3>
+        <p className="text-font-subtlest text-xs">Testing font rendering across different weights</p>
+      </div>
+      
+      <div className="flex flex-col gap-4">
+        <div>
+          <p className="text-font-subtle text-xs mb-1">font-primary-light (Poppins Light 300)</p>
+          <Button className="font-primary-light">Light Weight Button</Button>
+        </div>
+        
+        <div>
+          <p className="text-font-subtle text-xs mb-1">font-primary (Poppins Medium 500)</p>
+          <Button className="font-primary">Medium Weight Button</Button>
+        </div>
+        
+        <div>
+          <p className="text-font-subtle text-xs mb-1">font-primary-bold (Poppins Bold 700)</p>
+          <Button className="font-primary-bold">Bold Weight Button</Button>
+        </div>
+      </div>
+    </div>
+  ),
+};
+
+export const PoppinsLight: Story = {
+  args: {
+    children: "Light Weight Text",
+    className: "font-primary-light",
+  },
+};
+
+export const PoppinsMedium: Story = {
+  args: {
+    children: "Medium Weight Text",
+    className: "font-primary",
+  },
+};
+
+export const PoppinsBold: Story = {
+  args: {
+    children: "Bold Weight Text",
+    className: "font-primary-bold",
   },
 };
