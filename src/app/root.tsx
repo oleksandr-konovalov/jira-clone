@@ -29,6 +29,8 @@ import fuck from "react-toastify/dist/ReactToastify.css";
 
 export const links = () => {
   return [
+    { rel: "preconnect", href: "https://fonts.googleapis.com" },
+    { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
     { rel: "stylesheet", href: fonts },
     { rel: "stylesheet", href: styles },
     { rel: "stylesheet", href: fuck },
@@ -162,7 +164,7 @@ const errorComponentStyle: CSSProperties = {
   transform: "translate(-50%, -50%)",
   textAlign: "center",
   color: "#0052cc",
-  fontFamily: "sans-serif",
+  fontFamily: "Poppins, sans-serif",
   fontWeight: "bold",
 };
 

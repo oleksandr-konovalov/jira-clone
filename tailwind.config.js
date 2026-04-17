@@ -193,10 +193,10 @@ module.exports = {
       transparent: "transparent",
     },
     fontFamily: {
-      "primary-light": ["CircularStdLight", "sans-serif"],
-      primary: ["CircularStdMedium", "sans-serif"],
-      "primary-bold": ["CircularStdBold", "sans-serif"],
-      "primary-black": ["CircularStdBlack", "sans-serif"],
+      "primary-light": ["Poppins", "sans-serif"],
+      primary: ["Poppins", "sans-serif"],
+      "primary-bold": ["Poppins", "sans-serif"],
+      "primary-black": ["Poppins", "sans-serif"],
     },
     boxShadow: {
       xs: "rgba(0,0,0, 0.2) 0px 1px 1px, rgba(0,0,0, 0.2) 0px 0px 1px",
@@ -301,6 +301,22 @@ module.exports = {
           "&::-webkit-scrollbar": {
             display: "none",
           },
+        },
+      })
+    ),
+    plugin(({ addBase }) =>
+      addBase({
+        ".font-primary-light": {
+          "font-weight": "300",
+        },
+        ".font-primary": {
+          "font-weight": "500",
+        },
+        ".font-primary-bold": {
+          "font-weight": "700",
+        },
+        ".font-primary-black": {
+          "font-weight": "900",
         },
       })
     ),
