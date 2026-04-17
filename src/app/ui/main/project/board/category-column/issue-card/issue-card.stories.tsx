@@ -83,7 +83,8 @@ export const Standard: Story = {
 export const LongName: Story = {
   args: {
     link: "https://google.com",
-    name: "This is a very long issue name that should be truncated",
+    name:
+      "This is a very long issue name that should be truncated",
     priorityId: "high",
     idPrefix: "1234",
     isSubmitting: false,

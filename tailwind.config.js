@@ -193,10 +193,12 @@ module.exports = {
       transparent: "transparent",
     },
     fontFamily: {
-      "primary-light": ["CircularStdLight", "sans-serif"],
-      primary: ["CircularStdMedium", "sans-serif"],
-      "primary-bold": ["CircularStdBold", "sans-serif"],
-      "primary-black": ["CircularStdBlack", "sans-serif"],
+      // All font family variants use Poppins; weight is controlled via font-weight CSS property
+      // primary-light: 300, primary: 500, primary-bold: 700, primary-black: 900
+      "primary-light": ["Poppins", "sans-serif"],
+      primary: ["Poppins", "sans-serif"],
+      "primary-bold": ["Poppins", "sans-serif"],
+      "primary-black": ["Poppins", "sans-serif"],
     },
     boxShadow: {
       xs: "rgba(0,0,0, 0.2) 0px 1px 1px, rgba(0,0,0, 0.2) 0px 0px 1px",

@@ -39,7 +39,9 @@ export const Default: Story = {
     <div>
       <Sidebar
         projectName={projectMock1.name}
-        projectDescription={projectMock1.description || "Project description"}
+        projectDescription={
+          projectMock1.description || "Project description"
+        }
         projectImage={projectMock1.image}
       />
     </div>

@@ -10,7 +10,9 @@ const meta: Meta<typeof Header> = {
   },
   decorators: [
     (Story) => (
-      <div className="w-full">{withRemixStub(withMainContext(Story))}</div>
+      <div className="w-full">
+        {withRemixStub(withMainContext(Story))}
+      </div>
     ),
   ],
 };
