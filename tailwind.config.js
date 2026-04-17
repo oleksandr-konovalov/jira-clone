@@ -193,6 +193,8 @@ module.exports = {
       transparent: "transparent",
     },
     fontFamily: {
+      // All font family variants use Poppins; weight is controlled via font-weight CSS property
+      // primary-light: 300, primary: 500, primary-bold: 700, primary-black: 900
       "primary-light": ["Poppins", "sans-serif"],
       primary: ["Poppins", "sans-serif"],
       "primary-bold": ["Poppins", "sans-serif"],

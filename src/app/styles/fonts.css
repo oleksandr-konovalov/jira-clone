@@ -1,6 +1,12 @@
+/**
+ * Font face declarations for legacy CircularStd family names.
+ * These now alias to Poppins weights loaded from Google Fonts.
+ * Preserves existing font-family references throughout the codebase.
+ */
+
 @font-face {
   font-family: "CircularStdLight";
-  src: local('Poppins Light'), local('Poppins-Light');
+  src: local("Poppins Light"), local("Poppins-Light");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -8,7 +14,7 @@
 
 @font-face {
   font-family: "CircularStdMedium";
-  src: local('Poppins Medium'), local('Poppins-Medium');
+  src: local("Poppins Medium"), local("Poppins-Medium");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -16,7 +22,7 @@
 
 @font-face {
   font-family: "CircularStdBold";
-  src: local('Poppins Bold'), local('Poppins-Bold');
+  src: local("Poppins Bold"), local("Poppins-Bold");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -24,7 +30,7 @@
 
 @font-face {
   font-family: "CircularStdBlack";
-  src: local('Poppins Black'), local('Poppins-Black');
+  src: local("Poppins Black"), local("Poppins-Black");
   font-weight: 900;
   font-style: normal;
   font-display: swap;

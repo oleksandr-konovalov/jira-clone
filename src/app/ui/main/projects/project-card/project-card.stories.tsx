@@ -20,7 +20,9 @@ const meta: Meta<typeof ProjectCard> = {
       },
     },
   },
-  decorators: [(Story) => withRemixStub(Story())],
+  decorators: [
+    (Story) => withRemixStub(Story()),
+  ],
 };
 
 export default meta;
@@ -37,8 +39,12 @@ const mockProjectSummary: ProjectSummary = {
 export const Default: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
-      {[Standard, WithLongDescription, NonDeletable].map(({ args }, index) => (
-        <ProjectCard key={index} project={args?.project || projectMock1} />
+      {[Standard, WithLongDescription, NonDeletable].map(
+        ({ args }, index) => (
+          <ProjectCard
+            key={index}
+            project={args?.project || projectMock1}
+          />
       ))}
     </div>
   ),

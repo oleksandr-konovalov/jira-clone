@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import * as Dialog from "./dialog";
 import { Button } from "../button";
 
@@ -13,10 +13,10 @@ export default meta;
 type Story = StoryObj;
 
 /**
- * Demonstrates all Poppins font weights in the Dialog:
- * - Title: font-primary-black (Poppins 900)
- * - Description: font-primary-light (Poppins 300)
- * - Button text: default font-primary (Poppins 500)
+ * Demonstrates Poppins font weight variations:
+ * - Title uses font-primary-black (900 weight) for strong emphasis
+ * - Description uses font-primary-light (300 weight) for visual hierarchy
+ * - Button text uses default font-primary (500 weight) for readability
  */
 export const FontWeightShowcase: Story = {
   render: () => (

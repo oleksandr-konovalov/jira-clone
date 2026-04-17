@@ -22,7 +22,9 @@ const meta: Meta<typeof CreateProjectPanelView> = {
       },
     },
   },
-  decorators: [(Story) => withRemixStub(withMainContext(Story))],
+  decorators: [
+    (Story) => withRemixStub(withMainContext(Story)),
+  ],
 };
 
 export default meta;

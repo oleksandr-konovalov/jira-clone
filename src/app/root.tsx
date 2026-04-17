@@ -29,9 +29,18 @@ import fuck from "react-toastify/dist/ReactToastify.css";
 
 export const links = () => {
   return [
+    // Preconnect to Google Fonts for faster font loading
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
-    { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-    { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" },
+    {
+      rel: "preconnect",
+      href: "https://fonts.gstatic.com",
+      crossOrigin: "anonymous",
+    },
+    // Load Poppins font weights: 300 (light), 500 (medium), 700 (bold), 900 (black)
+    {
+      rel: "stylesheet",
+      href: "https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap",
+    },
     { rel: "stylesheet", href: fonts },
     { rel: "stylesheet", href: styles },
     { rel: "stylesheet", href: fuck },
