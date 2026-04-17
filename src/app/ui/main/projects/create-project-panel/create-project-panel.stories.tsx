@@ -1,7 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { projectMock1 } from "@domain/project";
 import { usersMock } from "@domain/user";
-import { withRemixStub, withMainContext } from "@app/stories/utils";
+import {
+  withRemixStub,
+  withMainContext,
+} from "@app/stories/utils";
 import { CreateProjectPanelView } from "./create-project-panel.view";
 
 const meta: Meta<typeof CreateProjectPanelView> = {
@@ -22,7 +25,10 @@ const meta: Meta<typeof CreateProjectPanelView> = {
       },
     },
   },
-  decorators: [(Story) => withRemixStub(withMainContext(Story))],
+  decorators: [
+    (Story, context) =>
+      withRemixStub(withMainContext(Story, context)),
+  ],
 };
 
 export default meta;
