@@ -193,10 +193,10 @@ module.exports = {
       transparent: "transparent",
     },
     fontFamily: {
-      "primary-light": ["CircularStdLight", "sans-serif"],
-      primary: ["CircularStdMedium", "sans-serif"],
-      "primary-bold": ["CircularStdBold", "sans-serif"],
-      "primary-black": ["CircularStdBlack", "sans-serif"],
+      "primary-light": ["PoppinsLight", "sans-serif"],
+      primary: ["PoppinsMedium", "sans-serif"],
+      "primary-bold": ["PoppinsBold", "sans-serif"],
+      "primary-black": ["PoppinsBlack", "sans-serif"],
     },
     boxShadow: {
       xs: "rgba(0,0,0, 0.2) 0px 1px 1px, rgba(0,0,0, 0.2) 0px 0px 1px",
