@@ -34,10 +34,10 @@ export const Default: Story = {
     <div className="grid grid-cols-5 items-center justify-center gap-4 p-4 text-font">
       <span></span>
       {sizes.map((size) => (
-        <span>{size}px</span>
+        <span key={size}>{size}px</span>
       ))}
       {priorities.map((priority) => (
-        <>
+        <div key={priority} className="contents">
           <span>{priority}</span>
           {sizes.map((size) => (
             <PriorityIcon
@@ -46,7 +46,7 @@ export const Default: Story = {
               size={size}
             />
           ))}
-        </>
+        </div>
       ))}
     </div>
   ),
@@ -90,3 +90,4 @@ export const Size48: Story = {
     size: 48,
   },
 };
+

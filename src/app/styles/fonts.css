@@ -1,8 +1,7 @@
 @font-face {
   font-family: "CircularStdLight";
-  src: 
-    url('../../../public/fonts/CircularStd-Book.woff2') format('woff2'),
-    url('../../../public/fonts/CircularStd-Book.woff') format('woff');
+  src: url("../../../public/fonts/CircularStd-Book.woff2") format("woff2"),
+    url("../../../public/fonts/CircularStd-Book.woff") format("woff");
 
   font-weight: normal;
   font-style: normal;
@@ -11,9 +10,8 @@
 
 @font-face {
   font-family: "CircularStdMedium";
-  src: 
-    url('../../../public/fonts/CircularStd-Medium.woff2') format('woff2'),
-    url('../../../public/fonts/CircularStd-Medium.woff') format('woff');
+  src: url("../../../public/fonts/CircularStd-Medium.woff2") format("woff2"),
+    url("../../../public/fonts/CircularStd-Medium.woff") format("woff");
 
   font-weight: normal;
   font-style: normal;
@@ -22,9 +20,8 @@
 
 @font-face {
   font-family: "CircularStdBold";
-  src: 
-    url('../../../public/fonts/CircularStd-Bold.woff2') format('woff2'),
-    url('../../../public/fonts/CircularStd-Bold.woff') format('woff');
+  src: url("../../../public/fonts/CircularStd-Bold.woff2") format("woff2"),
+    url("../../../public/fonts/CircularStd-Bold.woff") format("woff");
 
   font-weight: normal;
   font-style: normal;
@@ -33,9 +30,8 @@
 
 @font-face {
   font-family: "CircularStdBlack";
-  src: 
-    url('../../../public/fonts/CircularStd-Black.woff2') format('woff2'),
-    url('../../../public/fonts/CircularStd-Black.woff') format('woff');
+  src: url("../../../public/fonts/CircularStd-Black.woff2") format("woff2"),
+    url("../../../public/fonts/CircularStd-Black.woff") format("woff");
 
   font-weight: normal;
   font-style: normal;
@@ -44,7 +40,7 @@
 
 @font-face {
   font-family: "Poppins";
-  src: url('../../../public/fonts/Poppins-Medium.woff2') format('woff2');
+  src: url("../../../public/fonts/Poppins-Medium.woff2") format("woff2");
 
   font-weight: 500;
   font-style: normal;
