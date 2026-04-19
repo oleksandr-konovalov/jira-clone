@@ -4,7 +4,7 @@ import {
   projectToProjectSummary,
   projectMock1,
 } from "@domain/project";
-import { withRemixStub } from "@app/stories/utils";
+import { withRemixStub } from "@app/stories/utils.tsx";
 import { ProjectCard } from "./project-card";
 
 const meta: Meta<typeof ProjectCard> = {
