@@ -19,3 +19,4 @@ export interface Category {
   createdAt?: number;
   updatedAt?: number;
 }
+
