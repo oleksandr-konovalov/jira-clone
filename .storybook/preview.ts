@@ -6,10 +6,12 @@ import { withThemeByClassName } from "@storybook/addon-styling";
 import "../src/app/styles/app-compiled.css";
 import "../src/app/styles/fonts.css";
 
-// Load Poppins font from Google Fonts
-const fontLink = document.createElement('link');
-fontLink.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap';
-fontLink.rel = 'stylesheet';
+// Load Poppins font from Google Fonts for project card titles
+// This ensures the font is available in Storybook's isolated iframe environment
+const fontLink = document.createElement("link");
+fontLink.href =
+  "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap";
+fontLink.rel = "stylesheet";
 document.head.appendChild(fontLink);
 
 const preview: Preview = {
