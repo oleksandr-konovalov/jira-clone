@@ -32,7 +32,11 @@ export const links = () => {
     { rel: "stylesheet", href: fonts },
     { rel: "stylesheet", href: styles },
     { rel: "stylesheet", href: fuck },
-    { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" },
+    // Poppins font from Google Fonts, used for project titles
+    {
+      rel: "stylesheet",
+      href: "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap",
+    },
     { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
   ];
 };

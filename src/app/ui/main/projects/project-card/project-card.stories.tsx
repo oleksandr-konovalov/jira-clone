@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import {
   ProjectSummary,
   projectToProjectSummary,
@@ -20,7 +20,7 @@ const meta: Meta<typeof ProjectCard> = {
       },
     },
   },
-  decorators: [(Story) => withRemixStub(Story())],
+  decorators: [(Story) => withRemixStub(<Story />)],
 };
 
 export default meta;

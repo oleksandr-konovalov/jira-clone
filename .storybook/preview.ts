@@ -6,11 +6,13 @@ import { withThemeByClassName } from "@storybook/addon-styling";
 import "../src/app/styles/app-compiled.css";
 import "../src/app/styles/fonts.css";
 
-// Load Poppins font from Google Fonts (the app loads this via root.tsx links())
-const fontLink = document.createElement('link');
-fontLink.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap';
-fontLink.rel = 'stylesheet';
-document.head.appendChild(fontLink);
+// Load Poppins font from Google Fonts to match the app's font configuration.
+// The main app loads this via root.tsx links(), but Storybook needs explicit loading.
+const poppinsFontLink = document.createElement("link");
+poppinsFontLink.href =
+  "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap";
+poppinsFontLink.rel = "stylesheet";
+document.head.appendChild(poppinsFontLink);
 
 const preview: Preview = {
   parameters: {

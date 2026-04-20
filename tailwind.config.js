@@ -197,6 +197,7 @@ module.exports = {
       primary: ["CircularStdMedium", "sans-serif"],
       "primary-bold": ["CircularStdBold", "sans-serif"],
       "primary-black": ["CircularStdBlack", "sans-serif"],
+      // Poppins font for project titles, creating visual hierarchy
       poppins: ["Poppins", "sans-serif"],
     },
     boxShadow: {
