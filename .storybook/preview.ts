@@ -5,6 +5,12 @@ import { withThemeByClassName } from "@storybook/addon-styling";
 /* TODO: update import to your tailwind styles file. If you're using Angular, inject this through your angular.json config instead */
 import "../src/app/styles/app-compiled.css";
 
+// Load Poppins font from Google Fonts (normally loaded via root.tsx links() which doesn't apply to Storybook)
+const fontLink = document.createElement('link');
+fontLink.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap';
+fontLink.rel = 'stylesheet';
+document.head.appendChild(fontLink);
+
 const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: "^on[A-Z].*" },
