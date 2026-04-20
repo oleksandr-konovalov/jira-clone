@@ -28,7 +28,7 @@ export const ProjectCard = ({ project }: Props): JSX.Element => {
           className="h-auto w-[90px] rounded-l object-cover"
         />
         <div className="flex flex-col gap-1 px-3 pb-4 pt-2">
-          <h2 className="text-lg">{project.name}</h2>
+          <h2 className="text-lg font-['Poppins',sans-serif]">{project.name}</h2>
           <h3 className="line-clamp-2 min-h-[40px] font-primary-light text-sm text-font-subtle text-opacity-100">
             {project.description}
           </h3>
